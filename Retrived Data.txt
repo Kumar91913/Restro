@@ -1,0 +1,412 @@
+mysql> SELECT * FROM STUDENT;
++------+---------+------+
+| sid  | sname   | perc |
++------+---------+------+
+|  102 | sandeep |   99 |
+|  102 | saradhi |   85 |
+|  103 | ramu    |   88 |
+|  104 | hari    |   77 |
+|  105 | giri    |   40 |
+|  106 | ravi    |   65 |
+|  107 | hari    |   99 |
+|  108 | venu    |   88 |
++------+---------+------+
+8 rows in set (0.00 sec)
+
+mysql> creat table students(
+    -> sid int primary key;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'creat table students(
+sid int primary key' at line 1
+mysql> creat table students(
+    -> sid int primary key,
+    -> sname varchar(30),
+    -> cid int,
+    -> )
+    -> ;;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'creat table students(
+sid int primary key,
+sname varchar(30),
+cid int,
+)' at line 1
+ERROR: 
+No query specified
+
+mysql> create table course(
+    -> cid int primary key autoincrement,
+    -> cname varchAR(30),
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'autoincrement,
+cname varchAR(30),
+)' at line 2
+mysql> create table course(
+    -> cid int autoicrement primary key,
+    -> cname varchAR(30),
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'autoicrement primary key,
+cname varchAR(30),
+)' at line 2
+mysql> create table course(
+    -> cid int auto_icrement primary key,
+    -> cname varchAR(30),
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'auto_icrement primary key,
+cname varchAR(30),
+)' at line 2
+mysql> create table course(
+    -> cid int auto_increment primary key,
+    -> cname varchAR(30),
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4
+mysql> create table course( cid int auto_increment primary key,cname varchar(30));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create table students( sid int primary key,
+    -> sname varchar(30),cid int,
+    -> foriegn key(cid) references course(cid));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'key(cid) references course(cid))' at line 3
+mysql> create table students( sid int primary key,
+    -> sname varchar(30),cid int,
+    -> foreign key(cid) references course(cid));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> system cls;
+mysql> desc course;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| cid   | int         | NO   | PRI | NULL    | auto_increment |
+| cname | varchar(30) | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> desc students;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| sid   | int         | NO   | PRI | NULL    |       |
+| sname | varchar(30) | YES  |     | NULL    |       |
+| cid   | int         | YES  | MUL | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into course values(101,"testing");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into course values(102,'java'),(103,'selinium');
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from course;
++-----+----------+
+| cid | cname    |
++-----+----------+
+| 101 | testing  |
+| 102 | java     |
+| 103 | selinium |
++-----+----------+
+3 rows in set (0.00 sec)
+
+mysql> insert into students values(1,'sandeep',101);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into students values(1,'sandeep',102);
+ERROR 1062 (23000): Duplicate entry '1' for key 'students.PRIMARY'
+mysql> insert into students values(2,'sdeep',102);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into students values(3,'sdeep',105);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`school`.`students`, CONSTRAINT `students_ibfk_1` FOREIGN KEY (`cid`) REFERENCES `course` (`cid`))
+mysql> insert into students values(4,'sdeep',104);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`school`.`students`, CONSTRAINT `students_ibfk_1` FOREIGN KEY (`cid`) REFERENCES `course` (`cid`))
+mysql> select * from student;
++------+---------+------+
+| sid  | sname   | perc |
++------+---------+------+
+|  102 | sandeep |   99 |
+|  102 | saradhi |   85 |
+|  103 | ramu    |   88 |
+|  104 | hari    |   77 |
+|  105 | giri    |   40 |
+|  106 | ravi    |   65 |
+|  107 | hari    |   99 |
+|  108 | venu    |   88 |
++------+---------+------+
+8 rows in set (0.00 sec)
+
+mysql> select * from students;
++-----+---------+------+
+| sid | sname   | cid  |
++-----+---------+------+
+|   1 | sandeep |  101 |
+|   2 | sdeep   |  102 |
++-----+---------+------+
+2 rows in set (0.00 sec)
+
+mysql> select * from course;
++-----+----------+
+| cid | cname    |
++-----+----------+
+| 101 | testing  |
+| 102 | java     |
+| 103 | selinium |
++-----+----------+
+3 rows in set (0.00 sec)
+
+mysql> delete from course;
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`school`.`students`, CONSTRAINT `students_ibfk_1` FOREIGN KEY (`cid`) REFERENCES `course` (`cid`))
+mysql> delete from course;
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`school`.`students`, CONSTRAINT `students_ibfk_1` FOREIGN KEY (`cid`) REFERENCES `course` (`cid`))
+mysql> system cls;
+mysql> alter table course drop foreign key cid;
+ERROR 1091 (42000): Can't DROP 'cid'; check that column/key exists
+mysql> alter table students drop foreign key cid;
+ERROR 1091 (42000): Can't DROP 'cid'; check that column/key exists
+mysql> alter table students drop foreign key(cid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(cid)' at line 1
+mysql> alter table students drop foreign key fk_(cid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(cid)' at line 1
+mysql> alter table students drop foreign key cid;
+ERROR 1091 (42000): Can't DROP 'cid'; check that column/key exists
+mysql> desc students;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| sid   | int         | NO   | PRI | NULL    |       |
+| sname | varchar(30) | YES  |     | NULL    |       |
+| cid   | int         | YES  | MUL | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select *from students;
++-----+---------+------+
+| sid | sname   | cid  |
++-----+---------+------+
+|   1 | sandeep |  101 |
+|   2 | sdeep   |  102 |
++-----+---------+------+
+2 rows in set (0.00 sec)
+
+mysql> alter table students drop foreign key cid references course cid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'references course cid' at line 1
+mysql> alter table students drop foreign key cid;
+ERROR 1091 (42000): Can't DROP 'cid'; check that column/key exists
+mysql> ALTER TABLE Orders
+    -> ALTER TABLE Orders
+    -> alter table students drop constraint cid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TABLE Orders
+alter table students drop constraint cid' at line 2
+mysql> alter table students drop constraint cid;
+ERROR 3940 (HY000): Constraint 'cid' does not exist.
+mysql> select *from student;
++------+---------+------+
+| sid  | sname   | perc |
++------+---------+------+
+|  102 | sandeep |   99 |
+|  102 | saradhi |   85 |
+|  103 | ramu    |   88 |
+|  104 | hari    |   77 |
+|  105 | giri    |   40 |
+|  106 | ravi    |   65 |
+|  107 | hari    |   99 |
+|  108 | venu    |   88 |
++------+---------+------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT * FROM student where sid=105;
++------+-------+------+
+| sid  | sname | perc |
++------+-------+------+
+|  105 | giri  |   40 |
++------+-------+------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM student where sid>105;
++------+-------+------+
+| sid  | sname | perc |
++------+-------+------+
+|  106 | ravi  |   65 |
+|  107 | hari  |   99 |
+|  108 | venu  |   88 |
++------+-------+------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM student where sid<105;
++------+---------+------+
+| sid  | sname   | perc |
++------+---------+------+
+|  102 | sandeep |   99 |
+|  102 | saradhi |   85 |
+|  103 | ramu    |   88 |
+|  104 | hari    |   77 |
++------+---------+------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM student where sname<105;
++------+---------+------+
+| sid  | sname   | perc |
++------+---------+------+
+|  102 | sandeep |   99 |
+|  102 | saradhi |   85 |
+|  103 | ramu    |   88 |
+|  104 | hari    |   77 |
+|  105 | giri    |   40 |
+|  106 | ravi    |   65 |
+|  107 | hari    |   99 |
+|  108 | venu    |   88 |
++------+---------+------+
+8 rows in set, 8 warnings (0.00 sec)
+
+mysql> SELECT * FROM student where sname<105;
++------+---------+------+
+| sid  | sname   | perc |
++------+---------+------+
+|  102 | sandeep |   99 |
+|  102 | saradhi |   85 |
+|  103 | ramu    |   88 |
+|  104 | hari    |   77 |
+|  105 | giri    |   40 |
+|  106 | ravi    |   65 |
+|  107 | hari    |   99 |
+|  108 | venu    |   88 |
++------+---------+------+
+8 rows in set, 8 warnings (0.00 sec)
+
+mysql> SELECT * FROM student where sname=105;
+Empty set, 8 warnings (0.00 sec)
+
+mysql> SELECT * FROM student like sname 's%';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'like sname 's%'' at line 1
+mysql> SELECT * FROM student where sid<108 and per<99;
+ERROR 1054 (42S22): Unknown column 'per' in 'where clause'
+mysql> SELECT * FROM student where sid<108 and perc<99;
++------+---------+------+
+| sid  | sname   | perc |
++------+---------+------+
+|  102 | saradhi |   85 |
+|  103 | ramu    |   88 |
+|  104 | hari    |   77 |
+|  105 | giri    |   40 |
+|  106 | ravi    |   65 |
++------+---------+------+
+5 rows in set (0.00 sec)
+
+mysql> update * from student set sid=101 where sid=102 ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '* from student set sid=101 where sid=102' at line 1
+mysql> update * from student set sid=101 where sid=102 ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '* from student set sid=101 where sid=102' at line 1
+mysql> 
+mysql> update student set sid=101 where sid = 102 ;
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> table student;
++------+---------+------+
+| sid  | sname   | perc |
++------+---------+------+
+|  101 | sandeep |   99 |
+|  101 | saradhi |   85 |
+|  103 | ramu    |   88 |
+|  104 | hari    |   77 |
+|  105 | giri    |   40 |
+|  106 | ravi    |   65 |
+|  107 | hari    |   99 |
+|  108 | venu    |   88 |
++------+---------+------+
+8 rows in set (0.00 sec)
+
+mysql> update * from student set sid=101 where sname='saradhi' ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '* from student set sid=101 where sname='saradhi'' at line 1
+mysql> update student set sid=101 where sname='saradhi' ;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql> table student;
++------+---------+------+
+| sid  | sname   | perc |
++------+---------+------+
+|  101 | sandeep |   99 |
+|  101 | saradhi |   85 |
+|  103 | ramu    |   88 |
+|  104 | hari    |   77 |
+|  105 | giri    |   40 |
+|  106 | ravi    |   65 |
+|  107 | hari    |   99 |
+|  108 | venu    |   88 |
++------+---------+------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT * FROM student where  perc=99;
++------+---------+------+
+| sid  | sname   | perc |
++------+---------+------+
+|  101 | sandeep |   99 |
+|  107 | hari    |   99 |
++------+---------+------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM student where  perc=99 and sname=giri;
+ERROR 1054 (42S22): Unknown column 'giri' in 'where clause'
+mysql> SELECT * FROM student where  perc=99 or sname=giri;
+ERROR 1054 (42S22): Unknown column 'giri' in 'where clause'
+mysql> SELECT * FROM student where  perc=99 or sname='giri';
++------+---------+------+
+| sid  | sname   | perc |
++------+---------+------+
+|  101 | sandeep |   99 |
+|  105 | giri    |   40 |
+|  107 | hari    |   99 |
++------+---------+------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM student where  order by per acs;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order by per acs' at line 1
+mysql> SELECT * FROM student where  order by per desc;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order by per desc' at line 1
+mysql> SELECT * FROM student where  order by perc desc;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order by perc desc' at line 1
+mysql> SELECT * FROM student   order by perc desc;
++------+---------+------+
+| sid  | sname   | perc |
++------+---------+------+
+|  101 | sandeep |   99 |
+|  107 | hari    |   99 |
+|  103 | ramu    |   88 |
+|  108 | venu    |   88 |
+|  101 | saradhi |   85 |
+|  104 | hari    |   77 |
+|  106 | ravi    |   65 |
+|  105 | giri    |   40 |
++------+---------+------+
+8 rows in set (0.00 sec)
+
+mysql> table student;SELECT * from            
++------+---------+------+
+| sid  | sname   | perc |
++------+---------+------+
+|  101 | sandeep |   99 |
+|  101 | saradhi |   85 |
+|  103 | ramu    |   88 |
+|  104 | hari    |   77 |
+|  105 | giri    |   40 |
+|  106 | ravi    |   65 |
+|  107 | hari    |   99 |
+|  108 | venu    |   88 |
++------+---------+------+
+8 rows in set (0.00 sec)
+
+    -> 
+    -> 
+    -> 
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> cd..
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'cd..' at line 1
+mysql> \!cls
+ERROR: 
+Usage: \! shell-command
+mysql> \!cls
+ERROR: 
+Usage: \! shell-command
+mysql> \! cls
+mysql> Terminal close -- exit!

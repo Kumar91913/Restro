@@ -1,0 +1,6 @@
+f=open("Bcg.txt",'w')
+f.write("python\n")
+f.write("abc\n")
+f.write("def\n")
+f.write("ghi\n")
+f.close()
